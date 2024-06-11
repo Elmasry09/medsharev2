@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Services\ImageService;
 use Illuminate\Http\Request;
+//use App\Services\ImageService;
 
 class ProfileController extends Controller
 {   
@@ -25,7 +26,6 @@ class ProfileController extends Controller
         ]);
     }
 
-    //  Update user's profile.
 
     public function updateProfile(Request $request)
     {

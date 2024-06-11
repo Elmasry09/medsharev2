@@ -150,8 +150,7 @@ class AuthController extends Controller
 
         return ApiResponse::sendResponse(200, 'Password Reset Successfully');
     }
-
-
+}
 
 
 
@@ -228,5 +227,4 @@ class AuthController extends Controller
     //     return ApiResponse::sendResponse(200, 'Password reset successfully');
     // }
 
-}
-
+//}
