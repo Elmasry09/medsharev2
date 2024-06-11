@@ -67,6 +67,7 @@ class AuthController extends Controller
             $data['token'] = $user->createToken('MyAuthApp')->plainTextToken;
             $data['name'] = $user->name;
             $data['email'] = $user->email;
+            $data['image'] = $user->image;
 
             return ApiResponse::sendResponse(200, "Login Succcessfully", $data);
 

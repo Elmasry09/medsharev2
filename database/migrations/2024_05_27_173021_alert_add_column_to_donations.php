@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::table('donations', function (Blueprint $table) {
             $table->foreignId('address_id')->constrained('addresses')->onDelete('cascade')->onUpdate('cascade');
-
         });
     }
 
