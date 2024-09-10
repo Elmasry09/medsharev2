@@ -28,8 +28,9 @@ class CharityStoreRequest extends FormRequest
             'phone' => 'nullable|min:11|numeric|unique:charits,phone',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4048',
             'description' => 'nullable|string',
-            'specialty_id' => 'nullable|exists:specialties,id',
+            'specialty_id' => 'required|exists:specialties,id',
             'website_link'=>'nullable|url',
+            'isActive' => 'required',
         ];
     }
 }

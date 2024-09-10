@@ -29,6 +29,7 @@ class CharitController extends Controller
     public function store(CharityStoreRequest $request)
     {
         $validatedData = $request->validated();
+        // dd($validatedData);
         if ($request->hasFile("image")) {
             $validatedData["image"] = ImageService::uploadImage($request->file("image"), "charities");
         }
