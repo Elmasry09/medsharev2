@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CharityExport;
 use Inertia\Inertia;
 use App\Models\charit;
 use App\Models\specialty;
@@ -11,16 +12,23 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\CharityStoreRequest;
 use App\Http\Requests\CharityUpdateRequest;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CharitController extends Controller
 {
 
     public function create()
     {
-        $specialty = specialty::all();
-        return Inertia::render('admins/Charity/create',[
-            'specialty' => $specialty
+        $specialties = specialty::all();
+        return Inertia::render('admins/Charity/create', [
+            'specialties' => $specialties
         ]);
+    }
+
+    public function export()
+    {
+        // return Excel::download(new CharityExport(), 'charities.xlsx');
+        return Excel::download(new CharityExport(), 'charities.xlsx','xlsx');
     }
 
     /**
@@ -44,11 +52,11 @@ class CharitController extends Controller
      */
     public function edit(charit $charity)
     {
-        $charity->load(['specialty','users','admin']);
+        $charity->load(['specialty', 'users', 'admin']);
         // dd($charity);
         $specialty = specialty::all();
-        return Inertia::render('admins/Charity/edit',[
-            'charity'=>$charity,
+        return Inertia::render('admins/Charity/edit', [
+            'charity' => $charity,
             'specialty' => $specialty
         ]);
     }
@@ -56,7 +64,7 @@ class CharitController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(CharityUpdateRequest $request,charit $charity)
+    public function update(CharityUpdateRequest $request, charit $charity)
     {
         $validatedData = $request->validated();
         // dd($validatedData);

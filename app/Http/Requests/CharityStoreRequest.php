@@ -29,7 +29,7 @@ class CharityStoreRequest extends FormRequest
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:4048',
             'description' => 'nullable|string',
             'specialty_id' => 'required|exists:specialties,id',
-            'website_link'=>'nullable|url',
+            'website_link'=>'required|url',
             'isActive' => 'required',
         ];
     }

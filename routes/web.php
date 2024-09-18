@@ -14,8 +14,8 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CharitController;
 use App\Http\Controllers\DonationController;
+use App\Http\Controllers\landingPage\ContactController;
 use App\Http\Controllers\SpecialtyController;
-use App\Http\Controllers\LandingPage\ContactController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +77,7 @@ Route::group(['middleware' => ['auth:web'], 'as' => 'admins.'], function () {
         ]);
     })->name('charities');
 
+    Route::get('export', [CharitController::class, 'export'])->name('charities.export');
     Route::post('contact', ContactController::class)->name('contact.store');
 
     Route::resource('charities', CharitController::class)->except('show','index');
