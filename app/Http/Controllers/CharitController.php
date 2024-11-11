@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\CharityStoreRequest;
 use App\Http\Requests\CharityUpdateRequest;
+use Maatwebsite\Excel\Excel as ExcelExcel;
 use Maatwebsite\Excel\Facades\Excel;
 
 class CharitController extends Controller
@@ -28,7 +29,7 @@ class CharitController extends Controller
     public function export()
     {
         // return Excel::download(new CharityExport(), 'charities.xlsx');
-        return Excel::download(new CharityExport(), 'charities.xlsx','xlsx');
+        return Excel::download(new CharityExport(), 'charities.xlsx', ExcelExcel::XLSX);
     }
 
     /**
