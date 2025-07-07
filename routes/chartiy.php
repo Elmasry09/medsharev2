@@ -1,17 +1,18 @@
 <?php
 
-use App\Http\Controllers\charities\CharityContactController;
 use Inertia\Inertia;
 use App\Models\charit;
 use App\Models\donation;
+use App\Models\Charity_users;
+use App\Models\DonationRequest;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
+use App\Http\Controllers\DonationRequestController;
 use App\Http\Controllers\charities\DonationController;
 use App\Http\Controllers\charities\CharityUsersController;
-use App\Models\Charity_users;
+use App\Http\Controllers\charities\CharityContactController;
 use App\Http\Controllers\charities\CharityProfileController;
-
 
 /*
 |--------------------------------------------------------------------------
@@ -36,18 +37,22 @@ Route::get('/', function () {
 Route::group(['middleware' => ['auth:charits'], 'as' => 'charits.'], function () {
 
     Route::get('/CharityDashboard', function () {
+        $donationRequests = DonationRequest::where('state' , 'pending')->with(['user','address'])->paginate(20);
         $donations = donation::where('state', 'pending')->with(['address','user','city'])->paginate(20);
         // dd($donations);
         return Inertia::render('charities/dashboardView', [
-            'donations' => $donations
+            'donations' => $donations,
+            'donationRequests' => $donationRequests
         ]);
     })->name('CharityDashboard');
 
     Route::get('/DonationManagement', function () {
+        $donationRequests = DonationRequest::where('state' , '!=' ,'pending')->where('charity_id', Auth::user()->id)->with(['user','address'])->paginate(20);
         $donations = donation::where('state', '!=', 'pending')->where('charit_id', Auth::user()->id)->with(['address','user','city'])->paginate(20);
         // dd($donations);
         return Inertia::render('charities/DonationManagement/index', [
-            'donations' => $donations
+            'donations' => $donations,
+            'donationRequests' => $donationRequests
         ]);
     })->name('DonationManagement');
 
@@ -73,9 +78,18 @@ Route::group(['middleware' => ['auth:charits'], 'as' => 'charits.'], function ()
     //     return Inertia::render('charities/Settings/index');
     // })->name('charitySettings');
 
+    Route::controller(DonationRequestController::class)->group(function () {
+        route::get('CharityDonationRequest/{donationRequest}', 'edit')->name('CharityDonationRequest.edit');
+        route::patch('CharityDonationRequest/{donationRequest}', 'update')->name('CharityDonationRequest.update');
+    });
+    Route::controller(DonationController::class)->group(function () {
+        route::get('Charitydonations/{donation}', 'edit')->name('CharityDonation.edit');
+        route::patch('Charitydonations/{donation}', 'update')->name('CharityDonation.update');
+    });
+    
 
     Route::post('contact', CharityContactController::class)->name('CharityContact.store');
-    Route::resource('Charitydonations', DonationController::class)->except('create','show','store','destroy');
+    // Route::resource('Charitydonations', DonationController::class)->except('create','show','store','destroy');
     Route::resource('profile', CharityProfileController::class)->only('update','destroy');
     Route::resource('Charityusers', CharityUsersController::class)->except('show','index');
 });

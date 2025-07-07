@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\LoginController;
 use App\Http\Controllers\Api\LogoutController;
+use App\Http\Controllers\Api\AddressController;
+use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\RegisterController;
 use App\Http\Controllers\Api\DeleteAccountController;
 use App\Http\Controllers\Api\ResetPasswordController;
+use App\Http\Controllers\Api\DonationRequestController;
 use App\Http\Controllers\Api\doniatonsApis\DonationController;
-use App\Http\Controllers\Api\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,7 +40,9 @@ Route::group(['middleware' => ['auth:users'], 'as' => 'users.'], function () {
     Route::put('/profile', [ProfileController::class, 'updateProfile']);
     Route::get('/addNewImage', [DonationController::class,'addNewImage']);
     Route::post('/deleteImage', [DonationController::class,'deleteImage']);
-
+    
+    Route::post('/donationRequests/{donationRequest}', [DonationRequestController::class,'update']);
+    Route::apiResource('donationRequests', DonationRequestController::class)->except('update');
 
     //         ---          Donations           ---
     Route::apiResource('/donations', DonationController::class);

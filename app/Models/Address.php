@@ -38,4 +38,9 @@ class Address extends Model
         return $this->hasMany(donation::class);
     }
 
+    public function donationRequests() : HasMany
+    {
+        return $this->hasMany(DonationRequest::class);
+    }
+
 }

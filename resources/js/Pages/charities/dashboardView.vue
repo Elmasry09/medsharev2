@@ -90,7 +90,8 @@
         </div>
     </div>
 
-    <DonationsReceivedTable />
+    <ManagementTable :donations="donations" />
+    <DonationRequests  :donations = "donationRequests" />
 </template>
 
 <script setup>
@@ -101,6 +102,13 @@ import CharityCharts from "@/Components/CharityCharts.vue";
 import ActiveAreas from "@/Components/ActiveAreas.vue";
 import DonationsReceivedTable from "@/Components/DonationsReceivedTable.vue";
 import DonationsReceived from "@/Components/DonationsReceived.vue";
+import ManagementTable from "@/Components/ManagementTable.vue";
+import DonationRequests from "@/Components/DonationRequests.vue";
+defineProps({
+    donations: Object,
+    donationRequests: Object
+});
+
 </script>
 
 <style lang="scss" scoped></style>

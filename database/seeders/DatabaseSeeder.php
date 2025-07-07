@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
             // CharitySeeder::class,
             // CharityUsersSeeder::class,
             // UserSeeder::class,
-            AddressSeeder::class,
+            // AddressSeeder::class,
             DonationSeeder::class
-        ]);
+        ]); 
 
     }
 }

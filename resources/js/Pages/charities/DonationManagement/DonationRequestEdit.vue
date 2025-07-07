@@ -66,7 +66,7 @@
                                     class="absolute block max-w-full h-auto -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                                     alt="image" />
 
-                            </div>
+                            </div>  
                         </div>
 
                     </div>
@@ -179,10 +179,10 @@ const props = defineProps({
 });
 
 const form = useForm({
-    state: String(props.donation.state),
+    state: props.donation.state,
 });
 const submit = () => {
-    form.patch(route("charits.CharityDonation.update", { donation: props.donation.id }), {
+    form.patch(route("charits.CharityDonationRequest.update", { donationRequest: props.donation.id }), {
         onFinish: () => Swal.fire("Updated successfully", "", "success"),
     });
 };

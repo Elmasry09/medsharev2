@@ -12,7 +12,7 @@
                         
                         <span 
                         class="ms-1 text-lg font-bold text-gray-500 md:ms-2 dark:text-gray-400"
-                        >Donations</span
+                        >Donation Requests</span
                     >
 
                     </div>
@@ -150,8 +150,8 @@
                             <tr>
                                 <th scope="col" class="px-4 py-3">Id</th>
                                 <th scope="col" class="px-4 py-3">user</th>
-                                <th scope="col" class="px-4 py-3">city</th>
                                 <th scope="col" class="px-4 py-3">address</th>
+                                <th scope="col" class="px-4 py-3">medicine name</th>
                                 <th scope="col" class="px-4 py-3">descreption</th>
                                 <th scope="col" class="px-4 py-3">Status</th>
                                 <th scope="col" class="px-4 py-3">
@@ -159,7 +159,7 @@
                                 </th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody v-if="donations">
                             <tr
                                 class="border-b dark:border-gray-700"
                                 v-for="(donation, index) in donations.data"
@@ -169,13 +169,13 @@
                                     scope="row"
                                     class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white"
                                 >
-                                {{ num+1 }}
+                                {{ index+1 }}
                                 </th>
                                 <td class="px-4 py-3">
                                     {{ donation.user.name }}
                                 </td>
                                 <td class="px-4 py-3">
-                                    {{ donation.city.name }}
+                                    {{ donation.address.address }}
                                 </td>
                                 <td class="px-4 py-3">
                                     {{ donation.address.address }}
@@ -189,9 +189,9 @@
                                         <Link
                                             :href="
                                                 route(
-                                                    'charits.CharityDonation.edit',
+                                                    'charits.CharityDonationRequest.edit',
                                                     {
-                                                        donation: donation.id,
+                                                        donationRequest: donation.id,
                                                     }
                                                 )
                                             "
@@ -207,7 +207,7 @@
                 </div>
 
             </div>
-            <Pagination :links="donations.links"  />
+            <!-- <Pagination :links="donations.links"  /> -->
         </div>
     </section>
 </template>

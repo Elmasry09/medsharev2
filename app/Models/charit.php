@@ -79,4 +79,9 @@ class charit extends Authenticatable #implements MustVerifyEmail
     {
         return $this->hasMany(Charity_Contact::class);
     }
+
+    public function donationRequests(): HasMany
+    {
+        return $this->hasMany(DonationRequest::class);
+    }
 }

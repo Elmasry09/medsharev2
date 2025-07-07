@@ -10,16 +10,8 @@ use Illuminate\Support\Facades\Auth;
 
 class DonationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-    /**
-     * Show the form for editing the specified resource.
-     */
+    
+    
     public function edit(donation $donation)
     {
         $donation->load(['images','address','city','charity','user']);
@@ -29,14 +21,12 @@ class DonationController extends Controller
         ]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request,donation $donation)
     {
         $validatedData = $request->validate([
-           'state' => 'required|exists:donations,state',
+            'state' => 'required|in:accepted,pending,approved'
         ]);
+        $validatedData['charit_id'] = auth()->user()->id;
         $donation->update($validatedData);
         return back();
     }
